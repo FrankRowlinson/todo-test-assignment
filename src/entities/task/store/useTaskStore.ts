@@ -1,15 +1,12 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { Task, TaskState } from "../model/types";
-
-const initialState = {
-  tasks: [],
-};
+import { getInitialState } from "./utils";
 
 export const useTaskStore = create<TaskState>()(
   persist(
     (set) => ({
-      ...initialState,
+      ...getInitialState(),
 
       addTask: (newTask) =>
         set((state) => ({

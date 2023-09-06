@@ -13,11 +13,15 @@ import { useTaskListStyles } from "./styles";
 import { getCompletionCounter } from "../store/selectors";
 import { useTaskStore } from "..";
 
-export function TaskList() {
+type Props = {
+  defaultIndex?: number;
+};
+
+export function TaskList({ defaultIndex = 0 }: Props) {
   const count = useTaskStore(getCompletionCounter());
   const { flexStyles, tabsStyles, tabPanelsStyles } = useTaskListStyles();
   return (
-    <Tabs {...tabsStyles}>
+    <Tabs {...tabsStyles} defaultIndex={defaultIndex}>
       <TabList>
         <Tab>All</Tab>
         <Tab>Active</Tab>
