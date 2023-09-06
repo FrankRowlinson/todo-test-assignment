@@ -1,20 +1,21 @@
 import { Checkbox, Flex, Text } from "@chakra-ui/react";
 import { Task } from "../model/types";
 import { useTaskStore } from "..";
+import { useTaskEntryStyles } from "./styles";
 
 type TaskEntryProps = Task;
 
 export function TaskEntry({ id, status, text }: TaskEntryProps) {
+  const { flexStyles, textStyles, checkboxStyles } = useTaskEntryStyles();
   const { switchStatus } = useTaskStore();
   return (
-    <Flex gap={2}>
+    <Flex {...flexStyles}>
       <Checkbox
-        size='lg'
+        {...checkboxStyles}
         onChange={() => switchStatus(id)}
-        checked={status === "completed"}
-        defaultChecked={status === "completed"}
+        isChecked={status === "completed"}
       />
-      <Text fontSize={20} as={status === "completed" ? "s" : "p"}>
+      <Text {...textStyles} as={status === "completed" ? "s" : "p"}>
         {text}
       </Text>
     </Flex>

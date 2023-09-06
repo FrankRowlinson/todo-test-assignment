@@ -1,12 +1,13 @@
 import { Container, Heading } from "@chakra-ui/react";
 import { CreateTaskInput } from "./features/create-task/";
 import { TaskList } from "./entities/task";
-import "./App.css";
+import { useAppStyles } from "./styles";
 
 function App() {
+  const { headingStyles, containerStyles } = useAppStyles();
   return (
-    <Container>
-      <Heading as='h1' size='2xl'>
+    <Container {...containerStyles}>
+      <Heading as='h1' {...headingStyles}>
         TODOS
       </Heading>
       <CreateTaskInput />

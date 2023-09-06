@@ -1,13 +1,12 @@
+import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { Task, TaskState } from "../model/types";
-import { compareStates } from "../../../shared/lib/compare";
-import { createWithEqualityFn } from "zustand/traditional";
 
 const initialState = {
   tasks: [],
 };
 
-export const useTaskStore = createWithEqualityFn<TaskState>()(
+export const useTaskStore = create<TaskState>()(
   persist(
     (set) => ({
       ...initialState,
@@ -37,6 +36,5 @@ export const useTaskStore = createWithEqualityFn<TaskState>()(
         })),
     }),
     { name: "task-storage", storage: createJSONStorage(() => localStorage) }
-  ),
-  compareStates
+  )
 );

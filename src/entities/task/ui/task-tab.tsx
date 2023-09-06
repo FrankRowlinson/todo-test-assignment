@@ -1,19 +1,26 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { useTaskStore } from "..";
 import { Status } from "../model/types";
 import { getTasks, getTasksByStatus } from "../store/selectors";
 import { TaskEntry } from "./task-entry";
+import { useTaskTabStyles } from "./styles";
 
 type Props = {
   status?: Status;
 };
 
 export function TaskTab({ status }: Props) {
-  const tasks = useTaskStore(status ? getTasksByStatus(status) : getTasks);
+  const { boxStyles } = useTaskTabStyles();
+  const tasks = useTaskStore(status ? getTasksByStatus(status) : getTasks());
+
+  if (!tasks.length) {
+    return <Text>There is no {status} tasks yet...</Text>;
+  }
+
   return (
-    <Box gap={2}>
+    <Box {...boxStyles}>
       {tasks.map((task) => (
-        <TaskEntry {...task} key={`${task.id}${task.status}`} />
+        <TaskEntry {...task} key={task.id} />
       ))}
     </Box>
   );
